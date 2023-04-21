@@ -67,19 +67,26 @@ public class Main extends TelegramLongPollingBot {
                     "Обери завдання, щоб перейти на наступний рівень");
             message.setChatId(chartId);
 
+            List<String> buttons = Arrays.asList(
+                    "Сплести маскувальну сітку (+15 монет)",
+                    "Зібрати кошти патріотичними піснями (+15 монет)",
+                    "Вступити в Міністерство Мемів України (+15 монет)",
+                    "Запустити волонтерську акцію (+15 монет)",
+                    "Вступити до лав тероборони (+15 монет))"
+            );
+            buttons = getRandom3(buttons);
+
             // send Buttons for level 1
             attachButtons(message, Map.of(
-                    "Сплести маскувальну сітку (+15 монет)", "level_1_task",
-                    "Зібрати кошти патріотичними піснями (+15 монет)", "level_1_task",
-                    "Вступити в Міністерство Мемів України (+15 монет)", "level_1_task",
-                    "Запустити волонтерську акцію (+15 монет)", "level_1_task",
-                    "Вступити до лав тероборони (+15 монет))", "level_1_task")
-            );
+                    buttons.get(0), "level_1_task",
+                    buttons.get(1), "level_1_task",
+                    buttons.get(2), "level_1_task"
+            ));
             sendApiMethodAsync(message);
         }
 
         if (update.hasCallbackQuery()) {
-            // Level 1
+            // End Level 1
             if (update.getCallbackQuery().getData().equals("level_1_task") && getLevel(chartId) == 1) {
                 // increase level
                 setLevel(chartId, 2);
@@ -93,18 +100,25 @@ public class Main extends TelegramLongPollingBot {
                         "Обери завдання, щоб перейти на наступний рівень\n");
                 message.setChatId(chartId);
 
+                List<String> buttons = Arrays.asList(
+                        "Зібрати комарів для нової біологічної зброї (+15 монет)",
+                        "Пройти курс молодого бійця (+15 монет)",
+                        "Задонатити на ЗСУ (+15 монет)",
+                        "Збити дрона банкою огірків (+15 монет)",
+                        "Зробити запаси коктейлів Молотова (+15 монет)"
+                );
+                buttons = getRandom3(buttons);
+
                 // send buttons for level 2
                 attachButtons(message, Map.of(
-                        "Зібрати комарів для нової біологічної зброї (+15 монет)", "level_2_task",
-                        "Пройти курс молодого бійця (+15 монет)", "level_2_task",
-                        "Задонатити на ЗСУ (+15 монет)", "level_2_task",
-                        "Збити дрона банкою огірків (+15 монет)", "level_2_task",
-                        "Зробити запаси коктейлів Молотова (+15 монет)", "level_2_task" )
-                );
+                        buttons.get(0), "level_2_task",
+                        buttons.get(1), "level_2_task",
+                        buttons.get(2), "level_2_task"
+                ));
                 sendApiMethodAsync(message);
             }
 
-            // Level 2
+            // End Level 2
             if (update.getCallbackQuery().getData().equals("level_2_task") && getLevel(chartId) == 2) {
                 // increase level
                 setLevel(chartId, 3);
@@ -118,14 +132,67 @@ public class Main extends TelegramLongPollingBot {
                         "Обери завдання, щоб перейти на наступний рівень\n");
                 message.setChatId(chartId);
 
+                List<String> buttons = Arrays.asList(
+                        "Злітати на тестовий рейд по чотирьох позиціях (+15 монет)",
+                        "Відвезти гуманітарку на передок (+15 монет)",
+                        "Знайти зрадника та здати в СБУ (+15 монет)",
+                        "Навести арту на орків (+15 монет)",
+                        "Притягнути танк трактором (+15 монет)"
+                );
+                buttons = getRandom3(buttons);
+
                 // send buttons for level 3
                 attachButtons(message, Map.of(
-                        "Злітати на тестовий рейд по чотирьох позиціях (+15 монет)", "level_3_task",
-                        "Відвезти гуманітарку на передок (+15 монет)", "level_3_task",
-                        "Знайти зрадника та здати в СБУ (+15 монет)", "level_3_task",
-                        "Навести арту на орків (+15 монет)", "level_3_task",
-                        "Притягнути танк трактором (+15 монет)", "level_3_task"
+                        buttons.get(0), "level_3_task",
+                        buttons.get(1), "level_3_task",
+                        buttons.get(2), "level_3_task"
                 ));
+                sendApiMethodAsync(message);
+            }
+
+            // End Level 3
+            if (update.getCallbackQuery().getData().equals("level_3_task") && getLevel(chartId) == 3) {
+                // increase level
+                setLevel(chartId, 4);
+
+                // send image for level 4
+                sendImage("level-4", chartId);
+
+                // send message for level 4
+                message = createMessage("*Вітаємо на останньому рівні!\n" +
+                        "Твій гусак - готова біологічна зброя - бандерогусак.*\n" +
+                        "Баланс: 50 монет. \n" +
+                        "Тепер ти можеш придбати Джавелін і глушити чмонь\n");
+                message.setChatId(chartId);
+
+                List<String> buttons = Arrays.asList(
+                        "Злітати на тестовий рейд по чотирьох позиціях (+15 монет)",
+                        "Відвезти гуманітарку на передок (+15 монет)",
+                        "Знайти зрадника та здати в СБУ (+15 монет)",
+                        "Навести арту на орків (+15 монет)",
+                        "Притягнути танк трактором (+15 монет)"
+                );
+                buttons = getRandom3(buttons);
+
+                // send buttons for level 4
+                attachButtons(message, Map.of(
+                        "Купити Джавелін (50 монет)", "level_4_task"
+                ));
+                sendApiMethodAsync(message);
+            }
+
+            // End Level 4
+            if (update.getCallbackQuery().getData().equals("level_4_task") && getLevel(chartId) == 4) {
+                // increase level
+                setLevel(chartId, 5);
+
+                // send message for level 5
+                message = createMessage("*Джавелін твій. Повний вперед!*");
+                message.setChatId(chartId);
+
+                // send image for level 5
+                sendImage("final", chartId);
+
                 sendApiMethodAsync(message);
             }
         }
@@ -191,4 +258,9 @@ public class Main extends TelegramLongPollingBot {
         levels.put(chatId, level);
     }
 
+    public List<String> getRandom3(List<String> variants) {
+        ArrayList<String> copy = new ArrayList<>(variants);
+        Collections.shuffle(copy);
+        return copy.subList(0, 3);
+    }
 }
